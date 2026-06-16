@@ -147,7 +147,7 @@ header {
   min-height: 100vh;
   display: flex;
   align-items: center;
-  padding: 80px 20px 100px;
+  padding: 100px 20px 100px;
   position: relative;
   overflow: hidden;
 }
@@ -287,12 +287,16 @@ header::after {
 .hero-photo {
   position: relative;
   animation: slideInRight 0.8s ease-out;
+  max-width: 440px;
+  width: 100%;
+  margin: 0 auto;
 }
 
 .photo-frame {
   position: relative;
   width: 100%;
   aspect-ratio: 3/4;
+  max-height: 520px;
   border-radius: 20px;
   overflow: hidden;
   border: 3px solid rgba(212, 175, 55, 0.28);
@@ -347,7 +351,18 @@ nav ul {
   justify-content: center;
   gap: 30px;
   padding: 0 20px;
-  flex-wrap: wrap;
+  overflow-x: auto;
+  white-space: nowrap;
+  -webkit-overflow-scrolling: touch;
+  scroll-snap-type: x proximity;
+}
+
+nav ul::-webkit-scrollbar {
+  display: none;
+}
+
+nav li {
+  scroll-snap-align: center;
 }
 
 nav a {
@@ -1105,9 +1120,7 @@ footer p {
 
     <div class="hero-photo">
       <div class="photo-frame">
-        <div class="photo-placeholder">
-          <i class="fas fa-user-circle"></i>
-        </div>
+        <img src="https://as2.ftcdn.net/v2/jpg/11/57/72/95/1000_F_1157729568_bzWI9dV4PoA1URwoIwgqeXO50BhQ3kfR.jpg" alt="Candidate Photo">
       </div>
     </div>
   </div>
