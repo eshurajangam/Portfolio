@@ -38,6 +38,7 @@
 
 html {
   scroll-behavior: smooth;
+  scroll-padding-top: 92px;
 }
 
 body {
@@ -348,10 +349,11 @@ nav ul {
   margin: 0 auto;
   list-style: none;
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   gap: 30px;
   padding: 0 20px;
   overflow-x: auto;
+  flex-wrap: nowrap;
   white-space: nowrap;
   -webkit-overflow-scrolling: touch;
   scroll-snap-type: x proximity;
@@ -405,6 +407,11 @@ nav a.active::after {
 /* ═══════════════════════════════════════════════════════════════
    SECTIONS
    ═══════════════════════════════════════════════════════════════ */
+
+section,
+header {
+  scroll-margin-top: 92px;
+}
 
 section {
   padding: 100px 20px;
@@ -1518,10 +1525,13 @@ document.querySelectorAll('nav a').forEach(link => {
       document.querySelectorAll('nav a').forEach(a => a.classList.remove('active'));
       this.classList.add('active');
       
-      // Scroll to section
+      // Scroll to section with offset for fixed header
       const target = document.querySelector(href);
+      const nav = document.querySelector('nav');
+      const navHeight = nav ? nav.offsetHeight : 0;
       if (target) {
-        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        const targetPosition = target.getBoundingClientRect().top + window.pageYOffset - navHeight - 12;
+        window.scrollTo({ top: Math.max(0, targetPosition), behavior: 'smooth' });
       }
     }
   });
