@@ -103,10 +103,10 @@ body {
 
 @keyframes glow {
   0%, 100% {
-    box-shadow: 0 0 20px rgba(74, 222, 128, 0.3);
+    box-shadow: 0 0 20px rgba(212, 175, 55, 0.28);
   }
   50% {
-    box-shadow: 0 0 40px rgba(74, 222, 128, 0.6);
+    box-shadow: 0 0 40px rgba(212, 175, 55, 0.42);
   }
 }
 
@@ -288,20 +288,49 @@ header::after {
 .hero-photo {
   position: relative;
   animation: slideInRight 0.8s ease-out;
-  max-width: 440px;
+  max-width: 500px;
   width: 100%;
   margin: 0 auto;
+  overflow: visible;
+}
+
+..hero-photo::before,
+.hero-photo::after {
+  content: '';
+  position: absolute;
+  border-radius: 50%;
+  z-index: -1;
+}
+
+.hero-photo::before {
+  top: -30px;
+  right: -26px;
+  width: 240px;
+  height: 240px;
+  background: radial-gradient(circle, rgba(212, 175, 55, 0.24), transparent 55%);
+  filter: blur(18px);
+}
+
+.hero-photo::after {
+  bottom: -34px;
+  left: -24px;
+  width: 210px;
+  height: 210px;
+  background: radial-gradient(circle, rgba(212, 175, 55, 0.18), transparent 60%);
+  filter: blur(16px);
 }
 
 .photo-frame {
   position: relative;
   width: 100%;
-  aspect-ratio: 3/4;
-  max-height: 520px;
-  border-radius: 20px;
+  aspect-ratio: 1 / 1;
+  max-width: 500px;
+  border-radius: 50%;
   overflow: hidden;
-  border: 3px solid rgba(212, 175, 55, 0.28);
-  box-shadow: 0 0 65px rgba(212, 175, 55, 0.18), var(--shadow);
+  border: 1px solid rgba(212, 175, 55, 0.18);
+  background: rgba(12, 34, 58, 0.24);
+  box-shadow: 0 30px 80px rgba(212, 175, 55, 0.14), 0 0 0 1px rgba(212, 175, 55, 0.08);
+  backdrop-filter: blur(18px);
   animation: glow 3s ease-in-out infinite;
 }
 
@@ -309,8 +338,19 @@ header::after {
   content: '';
   position: absolute;
   inset: 0;
-  background: linear-gradient(135deg, rgba(212, 175, 55, 0.18) 0%, transparent 50%);
+  background: linear-gradient(180deg, rgba(212, 175, 55, 0.12), transparent 50%);
   z-index: 2;
+  pointer-events: none;
+}
+
+.photo-frame::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border: 2px solid rgba(212, 175, 55, 0.16);
+  border-radius: 50%;
+  z-index: 1;
+  pointer-events: none;
 }
 
 .photo-frame img {
@@ -318,10 +358,41 @@ header::after {
   height: 100%;
   object-fit: cover;
   position: relative;
-  z-index: 1;
+  z-index: 2;
+  filter: saturate(1.06) contrast(1.04);
+  transition: transform 0.45s ease;
 }
 
-..photo-placeholder {
+.photo-frame:hover img {
+  transform: scale(1.02);
+}
+
+.photo-caption {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: -32px;
+  z-index: 10;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  gap: 16px;
+  padding: 18px 24px;
+  width: calc(100% + 60px);
+  max-width: 420px;
+  background: rgba(8, 28, 69, 0.96);
+  border: 1px solid rgba(212, 175, 55, 0.32);
+  border-radius: 32px;
+  box-shadow: 0 22px 44px rgba(0, 0, 0, 0.28);
+  backdrop-filter: blur(24px);
+  font-size: 0.98rem;
+}
+
+.photo-caption strong {
+  color: var(--gold);
+}
+
+.photo-placeholder {
   width: 100%;
   height: 100%;
   background: linear-gradient(135deg, rgba(255, 255, 255, 0.08) 0%, rgba(13, 32, 72, 0.24) 100%);
@@ -1129,7 +1200,11 @@ footer p {
 
     <div class="hero-photo">
       <div class="photo-frame">
-        <img src="candidate_image.jpeg" alt="Candidate Photo">
+        <img src="bg_removed_candidate_image.png" alt="Candidate Photo">
+      </div>
+      <div class="photo-caption">
+        <span><strong>Business Management</strong></span>
+        <span>Incoming MBA 2026-28</span>
       </div>
     </div>
   </div>
